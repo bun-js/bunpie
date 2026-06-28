@@ -1,0 +1,25 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+  "ignoreDependencies": [
+    "@kitajs/html",
+    "bun-plugin-tailwind-latest",
+    "tailwindcss"
+  ],
+  "ignoreFiles": [
+    "packages/*/src/**/*.test.{ts,tsx}",
+    "src/**/*.test.{ts,tsx}",
+    "**/lab.ts",
+    "**/_*.ts"
+  ],
+  "tags": ["-lintignore"],
+  "workspaces": {
+    ".": {
+      "entry": ["src/index.ts!"],
+      "project": ["src/**/*.{ts,tsx}!"]
+    },
+    "packages/*": {
+      "entry": ["src/index.ts!"],
+      "project": ["src/**/*.{ts,tsx}!"]
+    }
+  }
+}

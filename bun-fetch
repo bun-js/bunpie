@@ -1,0 +1,3 @@
+# bun-fetch https://httpbin.com.br/user-agent
+# bun -p"(async (r) => [r, await r.json()])(await fetch('$1'))"
+bun -p"fetch('$1', {verbose: true})"
