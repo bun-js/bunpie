@@ -2,6 +2,13 @@
   "name": "bun-pie",
   "version": "0.0.1",
   "description": "A Bun-powered HTTP client inspired by httpie.",
+  "keywords": [
+    "bun",
+    "cli",
+    "http",
+    "httpie",
+    "request"
+  ],
   "license": "MIT",
   "author": "neves",
   "exports": {
@@ -22,14 +29,10 @@
   "devDependencies": {
     "@types/bun": ">=1.3.14"
   },
-  "keywords": [
-    "bun",
-    "cli",
-    "http",
-    "httpie",
-    "request"
-  ],
   "engines": {
     "bun": ">=1.3.14"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
