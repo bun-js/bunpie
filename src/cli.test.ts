@@ -1,4 +1,5 @@
 import { afterEach, expect, mock, test } from "bun:test"
+import { version } from "../package.json"
 import { cli } from "./cli"
 
 const originalExit = process.exit
@@ -39,7 +40,7 @@ test("cli prints version and exits", async () => {
   }) as typeof process.exit
 
   await expect(cli(["--version"])).rejects.toThrow("exit")
-  expect(logged).toBe("bunpie 0.0.1-alpha.0")
+  expect(logged).toBe(`bunpie ${version}`)
 })
 
 test("cli fetches and renders responses", async () => {

@@ -1,6 +1,6 @@
 {
   "name": "bun-pie",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1",
   "description": "A Bun-powered HTTP client inspired by httpie.",
   "license": "MIT",
   "author": "neves",
@@ -11,7 +11,7 @@
     }
   },
   "bin": {
-    "bunpie": "./bin/bunpie"
+    "bunpie": "bin/bunpie"
   },
   "files": [
     "bin",
