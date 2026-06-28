@@ -54,6 +54,7 @@ description = "Run repository postinstall setup"
 [tasks.publish]
 description = "Publish the npm package"
 depends = ["check"]
+interactive = true
 run = "npm publish"
 
 [tasks."publish:dry-run"]
