@@ -44,10 +44,10 @@ test("cli prints version and exits", async () => {
 })
 
 test("cli fetches and renders responses", async () => {
-  let logged = ""
+  let _logged = ""
   let called = 0
   console.log = ((value: unknown) => {
-    logged = String(value)
+    _logged = String(value)
   }) as typeof console.log
   globalThis.fetch = ((..._args: Parameters<typeof fetch>) => {
     called += 1
