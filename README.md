@@ -1,7 +1,7 @@
 # bun-pie
 
 [![npm version](https://img.shields.io/npm/v/bun-pie.svg)](https://www.npmjs.com/package/bun-pie)
-[![license](https://img.shields.io/npm/l/bun-pie.svg)](./LICENSE)
+[![license](https://img.shields.io/npm/l/bun-pie.svg?)](./LICENSE)
 [![Bun](https://img.shields.io/badge/Bun-%3E%3D1.3.14-f472b6)](https://bun.sh)
 
 `bunpie` is a flavored [httpie](https://httpie.io/) on Bun.
