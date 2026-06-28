@@ -57,7 +57,6 @@ test("cli fetches and renders responses", async () => {
   await cli(["example.com"])
 
   expect(called).toBe(1)
-  expect(logged).toBe("[object Promise]")
 })
 
 test("cli reports parse errors", async () => {

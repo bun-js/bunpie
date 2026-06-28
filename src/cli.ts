@@ -16,7 +16,7 @@ export async function cli(argv: string[]) {
     }
     const request = buildRequest(positionals)
     const response = await fetch(request, { verbose: values.verbose })
-    console.log(renderResponse(response))
+    console.log(await renderResponse(response))
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
     console.error(msg)
