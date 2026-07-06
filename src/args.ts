@@ -10,3 +10,6 @@ export function args(args: string[]) {
     options,
   })
 }
+
+type Args = ReturnType<typeof args>
+export type ArgOpts = Args["values"]

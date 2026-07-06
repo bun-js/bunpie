@@ -14,7 +14,7 @@ export async function cli(argv: string[]) {
       console.log((await import("./help")).help())
       process.exit(1)
     }
-    const request = buildRequest(positionals)
+    const request = buildRequest(positionals, values)
     const response = await fetch(request, { verbose: values.verbose })
     console.log(await renderResponse(response))
   } catch (e: unknown) {

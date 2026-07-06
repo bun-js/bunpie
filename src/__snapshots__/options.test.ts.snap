@@ -1,0 +1,39 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`options matches snapshot 1`] = `
+{
+  "follow": {
+    "default": false,
+    "description": "Follow Location redirects.",
+    "short": "F",
+    "type": "boolean",
+  },
+  "form": {
+    "default": false,
+    "description": "Data items from the command line are serialized as form fields. The Content-Type is set to application/x-www-form-urlencoded (if not specified). The presence of any file fields results in a multipart/form-data request.",
+    "short": "f",
+    "type": "boolean",
+  },
+  "help": {
+    "description": "Show this help message and exit.",
+    "short": "h",
+    "type": "boolean",
+  },
+  "json": {
+    "default": true,
+    "description": "(default) Data items from the command line are serialized as a JSON object. The Content-Type and Accept headers are set to application/json (if not specified).",
+    "short": "j",
+    "type": "boolean",
+  },
+  "verbose": {
+    "description": "Verbose output.",
+    "short": "v",
+    "type": "boolean",
+  },
+  "version": {
+    "description": "Show version and exit.",
+    "short": "V",
+    "type": "boolean",
+  },
+}
+`;

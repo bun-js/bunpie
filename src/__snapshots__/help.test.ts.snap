@@ -11,7 +11,10 @@ exports[`help() matches snapshot 1`] = `
 
 \`-h\`, \`--help\` 	Show this help message and exit.\\
 \`-v\`, \`--verbose\` 	Verbose output.\\
-\`--version\` 	Show version and exit.
+\`-V\`, \`--version\` 	Show version and exit.\\
+\`-j\`, \`--json\` 	(default) Data items from the command line are serialized as a JSON object. The Content-Type and Accept headers are set to application/json (if not specified).\\
+\`-f\`, \`--form\` 	Data items from the command line are serialized as form fields. The Content-Type is set to application/x-www-form-urlencoded (if not specified). The presence of any file fields results in a multipart/form-data request.\\
+\`-F\`, \`--follow\` 	Follow Location redirects.
 
 ##### For every --OPTION there is also a --no-OPTION."
 `;

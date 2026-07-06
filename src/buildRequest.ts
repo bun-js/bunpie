@@ -1,29 +1,22 @@
+import type { ArgOpts } from "./args"
+import { buildInit } from "./buildInit"
+import { buildMethod } from "./buildMethod"
 import { buildUrl } from "./buildUrl"
 
-const METHODS = new Set(["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])
-
-export function buildRequest(args: string[]) {
-  let method = args.shift()
-  let url = ""
-  if (method) {
-    if (METHODS.has(method.toUpperCase())) {
-      method = method.toUpperCase()
-      url = args.shift() ?? missingUrl()
-    } else {
-      url = method
-      method = "GET"
-    }
-  }
-
+export function buildRequest(args: string[], opts: ArgOpts) {
+  const method = buildMethod(args)
+  const url = args[0]
+  if (!url) missingUrl(args)
+  args.shift()
   const Url = buildUrl(url)
-  const init = {
-    method,
-  }
-
+  const init = buildInit(args, Url, opts)
+  init.method = method
+  if (method === "GET" && init.body) init.method = "POST"
+  if (opts.follow) init.redirect = "follow"
   return new Request(Url.toString(), init)
 }
 
-function missingUrl(): never {
-  console.error("missing url")
+function missingUrl(args: string[]): never {
+  console.error(`missing url: ${args.join(" ")}`)
   process.exit(1)
 }

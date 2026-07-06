@@ -18,3 +18,12 @@ test("help() matches snapshot", () => {
 
   expect(help()).toMatchSnapshot()
 })
+
+test("help() renders ansi output in a tty", () => {
+  Object.defineProperty(process.stdout, "isTTY", {
+    configurable: true,
+    value: true,
+  })
+
+  expect(help()).toContain("Usage")
+})
