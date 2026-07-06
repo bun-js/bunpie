@@ -1,4 +1,7 @@
 import type { ArgOpts } from "./args"
+import { emptyObj } from "./utils/emptyObj"
+import { parseRequestItem } from "./utils/parseRequestItem"
+import { parseValue } from "./utils/parseValue"
 
 export function buildInit(
   args: string[],
@@ -10,21 +13,18 @@ export function buildInit(
   const payload: Record<string, unknown> = {}
 
   for (const arg of args) {
-    if (arg.includes("==")) {
-      const [key, value] = arg.split("==", 2)
-      if (key && value) url.searchParams.append(key, value)
-    } else if (arg.includes(":=")) {
-      const [key, value] = arg.split(":=", 2)
-      if (key && value) payload[key] = parseValue(value)
-    } else if (arg.includes(":")) {
-      const [key, value] = arg.split(":", 2)
-      if (key && value) headers.append(key, value)
-    } else if (arg.includes("=")) {
-      const [key, value] = arg.split("=", 2)
-      if (key && value) {
-        form.append(key, value)
-        payload[key] = value
-      }
+    const item = parseRequestItem(arg)
+    if (!item) continue
+
+    if (item.type === "query") {
+      url.searchParams.append(item.key, item.value)
+    } else if (item.type === "header") {
+      headers.append(item.key, item.value)
+    } else if (item.parseJson) {
+      payload[item.key] = parseValue(item.value)
+    } else {
+      form.append(item.key, item.value)
+      payload[item.key] = item.value
     }
   }
 
@@ -45,16 +45,4 @@ export function buildInit(
     headers,
     body,
   }
-}
-
-function parseValue(v: string) {
-  try {
-    return JSON.parse(v)
-  } catch {
-    return v
-  }
-}
-
-function emptyObj(obj: Record<string, unknown>) {
-  return Object.keys(obj).length === 0
 }
