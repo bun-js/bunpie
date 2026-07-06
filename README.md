@@ -22,7 +22,7 @@ bun install -g bun-pie
 ## Usage
 
 ```bash
-bunpie [OPTIONS] [METHOD] URL
+bunpie [OPTIONS] [METHOD] URL [REQUEST_ITEM ...]
 ```
 
 Examples:
@@ -31,13 +31,26 @@ Examples:
 bunpie example.com
 bunpie GET https://example.com
 bunpie POST https://example.com/api
+bunpie example.com foo:bar
+bunpie example.com foo==bar
+bunpie example.com name=bun count:=42
 ```
 
 If you omit the method, `bunpie` defaults to `GET`.
 
+Request items follow httpie-style parsing:
+
+- `foo:bar` becomes a header
+- `foo==bar` becomes a URL query parameter
+- `foo=bar` becomes a body field serialized into JSON by default
+- `foo:=42` becomes a JSON-parsed body field, so numbers, booleans, arrays, objects, and `null` are preserved
+
+When JSON mode is active, body fields are serialized as JSON and the `Content-Type` and `Accept` headers are set to `application/json` unless you already provided them.
+When form mode is active, body fields are collected as form data and `Content-Type` is set to `application/x-www-form-urlencoded` unless you already provided it.
+
 ## Development
 
-Uses `mise`
+Uses `mise`. See `mise.toml` for available tasks.
 
 ## Package Contents
 
@@ -45,6 +58,7 @@ This package is intentionally minimal and ships only what is needed to run the b
 
 - `bin/bunpie`
 - `src/`
+- `src/utils/`
 - `README.md`
 - `LICENSE`
 

@@ -7,6 +7,7 @@
 - one executable: `bunpie`
 - no public library API beyond the CLI entrypoint
 - TypeScript source in `src/`
+- shared helpers in `src/utils/`
 - tests in `src/*.test.ts`
 
 ## Stack And Tooling
@@ -35,6 +36,11 @@ If you change test behavior or help output, run the relevant tests before finish
 - Help text is snapshot-tested in `src/help.test.ts`.
 - If you intentionally change help output, update the snapshot in `src/__snapshots__/help.test.ts.snap`.
 - Keep tests close to the code they cover.
+- Request-item parsing is covered in `src/buildInit.test.ts` and currently supports:
+  - `foo:bar` for headers
+  - `foo==bar` for URL query parameters
+  - `foo=bar` for body fields serialized into JSON or form data
+  - `foo:=42` for JSON-parsed body fields, including arrays, objects, booleans, numbers, and `null`
 
 ## Editing Guidance
 
@@ -54,9 +60,11 @@ If you change test behavior or help output, run the relevant tests before finish
 - `src/cli.ts`: main CLI flow
 - `src/args.ts`: argument parsing
 - `src/buildRequest.ts`: request construction
+- `src/buildInit.ts`: request init construction and request-item parsing
 - `src/buildUrl.ts`: URL normalization
 - `src/help.ts`: help text rendering
 - `src/options.ts`: CLI option definitions
+- `src/utils/`: small shared helpers
 
 ## When In Doubt
 
