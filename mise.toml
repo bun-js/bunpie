@@ -15,6 +15,9 @@ postinstall = "mise run mise:postinstall"
 [tasks."bench:cold-start"]
 run = "bench/cold-start.sh"
 
+[tasks."bench:build-bin"]
+run = "bun build --compile --bytecode --no-compile-autoload-dotenv --no-compile-autoload-bunfig --outfile=bench/bunpie-empty bench/bunpie-empty.ts"
+
 [tasks."biome:check"]
 description = "Run Biome checks"
 run = "biome check"

@@ -8,11 +8,15 @@ export async function cli(argv: string[]) {
     if (values.version) {
       const { version } = await import("../package.json")
       console.log(`bunpie ${version}`)
-      process.exit()
+      return process.exit(0)
     }
-    if (values.help || positionals.length === 0) {
-      console.log((await import("./help")).help())
-      process.exit(1)
+    if (values.help) {
+      console.log(await renderHelp())
+      return process.exit(0)
+    }
+    if (positionals.length === 0) {
+      console.log(await renderHelp())
+      return process.exit(1)
     }
     const request = buildRequest(positionals, values)
     const response = await fetch(request, { verbose: values.verbose })
@@ -20,6 +24,11 @@ export async function cli(argv: string[]) {
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e)
     console.error(msg)
-    process.exit(1)
+    return process.exit(1)
   }
+}
+
+async function renderHelp() {
+  const { help } = await import("./help")
+  return help({ ansi: Boolean(process.stdout.isTTY) })
 }

@@ -1,22 +1,29 @@
+import { splitByFirstOperator } from "./splitByFirstOperator"
+
 export type RequestItem =
   | { type: "query"; key: string; value: string }
   | { type: "header"; key: string; value: string }
   | { type: "body"; key: string; value: string; parseJson: boolean }
 
+const OPERATORS = [
+  { token: "==", type: "query", parseJson: false },
+  { token: ":=", type: "body", parseJson: true },
+  { token: ":", type: "header", parseJson: false },
+  { token: "=", type: "body", parseJson: false },
+] as const
+
 export function parseRequestItem(arg: string): RequestItem | null {
-  if (arg.includes("==")) {
-    const [key, value] = arg.split("==", 2)
-    if (key && value) return { type: "query", key, value }
-  } else if (arg.includes(":=")) {
-    const [key, value] = arg.split(":=", 2)
-    if (key && value) return { type: "body", key, value, parseJson: true }
-  } else if (arg.includes(":")) {
-    const [key, value] = arg.split(":", 2)
-    if (key && value) return { type: "header", key, value }
-  } else if (arg.includes("=")) {
-    const [key, value] = arg.split("=", 2)
-    if (key && value) return { type: "body", key, value, parseJson: false }
+  const match = splitByFirstOperator(arg, OPERATORS)
+  if (!match) return null
+
+  if (match.operator.type === "body") {
+    return {
+      type: "body",
+      key: match.key,
+      value: match.value,
+      parseJson: match.operator.parseJson,
+    }
   }
 
-  return null
+  return { type: match.operator.type, key: match.key, value: match.value }
 }

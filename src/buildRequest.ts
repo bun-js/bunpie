@@ -1,22 +1,21 @@
 import type { ArgOpts } from "./args"
 import { buildInit } from "./buildInit"
-import { buildMethod } from "./buildMethod"
+import { buildMethod, isMethod } from "./buildMethod"
 import { buildUrl } from "./buildUrl"
 
 export function buildRequest(args: string[], opts: ArgOpts) {
   const method = buildMethod(args)
-  const url = args[0]
-  if (!url) missingUrl(args)
-  args.shift()
-  const Url = buildUrl(url)
-  const init = buildInit(args, Url, opts)
+  const requestArgs = isMethod(args[0]) ? args.slice(1) : [...args]
+  const [url, ...requestItems] = requestArgs
+  if (!url) missingUrl(requestArgs)
+  const requestUrl = buildUrl(url)
+  const { url: finalUrl, init } = buildInit(requestItems, requestUrl, opts)
   init.method = method
   if (method === "GET" && init.body) init.method = "POST"
-  if (opts.follow) init.redirect = "follow"
-  return new Request(Url.toString(), init)
+  init.redirect = opts.follow ? "follow" : "manual"
+  return new Request(finalUrl.toString(), init)
 }
 
 function missingUrl(args: string[]): never {
-  console.error(`missing url: ${args.join(" ")}`)
-  process.exit(1)
+  throw new Error(`missing url: ${args.join(" ")}`)
 }

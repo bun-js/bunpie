@@ -10,7 +10,9 @@ mise exec -- hyperfine \
   --warmup 3 \
   --runs 10 \
   --style full \
-  'ht --version' \
-  'http --version' \
   'xh --version' \
-  'bin/bunpie --version'
+  'ht --version' \
+  'bench/bunpie-empty --version' \
+  'bench/bunpie-empty.ts --version' \
+  'bin/bunpie --version' \
+  'http --version'

@@ -1,9 +1,12 @@
 import { options } from "./options"
 
-export function help() {
-  return process.stdout.isTTY
-    ? Bun.markdown.ansi(markdownHelp())
-    : markdownHelp()
+type HelpOptions = {
+  ansi?: boolean
+}
+
+export function help({ ansi = false }: HelpOptions = {}) {
+  const markdown = markdownHelp()
+  return ansi ? Bun.markdown.ansi(markdown) : markdown
 }
 
 function markdownHelp() {
