@@ -1,3 +1,3 @@
-export function emptyObj(obj: Record<string, unknown>) {
+export function emptyObj(obj: Record<string, unknown>): boolean {
   return Object.keys(obj).length === 0
 }

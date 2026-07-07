@@ -1,0 +1,38 @@
+help:
+  short: h
+  type: boolean
+  description: Show this help message and exit.
+
+verbose:
+  short: v
+  type: boolean
+  description: Verbose output.
+
+version:
+  short: V
+  type: boolean
+  description: Show version and exit.
+
+json:
+  short: j
+  type: boolean
+  default: true
+  description: >-
+    (default) Data items from the command line are serialized as a JSON object.
+    The Content-Type and Accept headers are set to application/json (if not
+    specified).
+
+form:
+  short: f
+  type: boolean
+  default: false
+  description: >-
+    Data items from the command line are serialized as form fields. The
+    Content-Type is set to application/x-www-form-urlencoded (if not specified).
+    The presence of any file fields results in a multipart/form-data request.
+
+follow:
+  short: F
+  type: boolean
+  default: false
+  description: Follow Location redirects.

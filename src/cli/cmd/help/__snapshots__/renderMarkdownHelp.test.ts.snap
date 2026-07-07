@@ -1,6 +1,6 @@
 // Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
-exports[`help() matches snapshot 1`] = `
+exports[`renderMarkdownHelp() matches snapshot 1`] = `
 "# Usage
 
 ### bunpie [OPTIONS] [METHOD] URL [REQUEST_ITEM ...]
