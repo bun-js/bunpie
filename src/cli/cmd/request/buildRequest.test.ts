@@ -54,3 +54,23 @@ test("buildRequest follows redirects when requested", () => {
 
   expect(request.redirect).toBe("follow")
 })
+
+test("buildRequest normalizes lowercase versions of all standard methods", () => {
+  const putReq = buildRequest(["put", "example.com"], baseOpts)
+  expect(putReq.method).toBe("PUT")
+
+  const deleteReq = buildRequest(["delete", "example.com"], baseOpts)
+  expect(deleteReq.method).toBe("DELETE")
+
+  const patchReq = buildRequest(["patch", "example.com"], baseOpts)
+  expect(patchReq.method).toBe("PATCH")
+
+  const optionsReq = buildRequest(["options", "example.com"], baseOpts)
+  expect(optionsReq.method).toBe("OPTIONS")
+})
+
+test("buildRequest upgrades explicit GET requests with a body to POST", () => {
+  const request = buildRequest(["GET", "example.com", "a=1"], baseOpts)
+
+  expect(request.method).toBe("POST")
+})
