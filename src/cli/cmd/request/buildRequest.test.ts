@@ -34,10 +34,16 @@ test("buildRequest throws when a method has no url", () => {
   expect(() => buildRequest(["POST"], baseOpts)).toThrow("missing url: ")
 })
 
-test("buildRequest upgrades GET requests with a body to POST", () => {
+test("buildRequest upgrades implicit GET requests with a body to POST", () => {
   const request = buildRequest(["example.com", "a=1"], baseOpts)
 
   expect(request.method).toBe("POST")
+})
+
+test("buildRequest preserves explicit GET requests with a body", () => {
+  const request = buildRequest(["GET", "example.com", "a=1"], baseOpts)
+
+  expect(request.method).toBe("GET")
 })
 
 test("buildRequest uses manual redirects by default", () => {
