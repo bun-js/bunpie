@@ -151,3 +151,16 @@ test("buildInit does not override user-provided form content type", () => {
 
   expect(headersOf(init).get("content-type")).toBe("multipart/form-data")
 })
+
+test("buildInit ignores invalid, empty or malformed request items", () => {
+  const url = new URL("http://example.com/")
+  const { url: requestUrl, init } = buildInit(
+    ["=", ":", "==", ":=", "=value", "key=", "key:", "key==", "key:="],
+    url,
+    jsonOpts,
+  )
+
+  expect(requestUrl.toString()).toBe("http://example.com/")
+  expect(init.body).toBeUndefined()
+  expect(headersOf(init).get("content-type")).toBe("application/json")
+})
