@@ -59,6 +59,13 @@ test("buildInit parses command-line body fields using json semantics", () => {
   )
 })
 
+test("buildInit uses last-write-wins semantics for repeated body fields", () => {
+  const url = new URL("http://example.com/")
+  const { init } = buildInit(["name=first", "name=second"], url, jsonOpts)
+
+  expect(init.body).toBe(JSON.stringify({ name: "second" }))
+})
+
 test("buildInit preserves delimiter characters inside values", () => {
   const url = new URL("http://example.com/")
   const { url: requestUrl, init } = buildInit(
