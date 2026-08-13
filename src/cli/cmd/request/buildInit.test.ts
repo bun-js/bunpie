@@ -125,6 +125,23 @@ test("buildInit keeps json-style form fields as raw form values", () => {
   expect(init.body?.toString()).toBe("count=42&items=%5B1%2C2%5D")
 })
 
+test("buildInit uses multipart form data for file fields", () => {
+  const url = new URL("http://example.com/")
+  const { init } = buildInit(["avatar@./fixtures/avatar.txt", "name=bun"], url, {
+    ...jsonOpts,
+    form: true,
+    json: false,
+  })
+
+  expect(init.body).toBeInstanceOf(FormData)
+  const form = init.body as FormData
+  expect(form.get("name")).toBe("bun")
+  const file = form.get("avatar")
+  expect(file).toBeInstanceOf(Blob)
+  expect((file as Blob).size).toBeGreaterThan(0)
+  expect(headersOf(init).get("content-type")).toBeNull()
+})
+
 test("buildInit does not override user-provided default headers", () => {
   const url = new URL("http://example.com/")
   const { init } = buildInit(

@@ -34,6 +34,14 @@ test("parseRequestItem prefers multi-character operators at the same index", () 
   })
 })
 
+test("parseRequestItem parses file fields with field@path syntax", () => {
+  expect(parseRequestItem("avatar@./fixtures/avatar.txt")).toEqual({
+    type: "file",
+    key: "avatar",
+    path: "./fixtures/avatar.txt",
+  })
+})
+
 test("parseRequestItem ignores items with missing keys or values", () => {
   expect(parseRequestItem("plain")).toBeNull()
   expect(parseRequestItem("=value")).toBeNull()
