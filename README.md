@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/bun-pie.svg)](https://www.npmjs.com/package/bun-pie)
 [![license](https://img.shields.io/npm/l/bun-pie.svg?)](./LICENSE)
 [![Bun](https://img.shields.io/badge/Bun-%3E%3D1.3.14-f472b6)](https://bun.sh)
-
+ 
 `bunpie` is a flavored [httpie](https://httpie.io/) on Bun.
 
 Note: the npm package is named `bun-pie` because `bunpie` is not available on npm. The installed executable is still `bunpie`.
@@ -47,6 +47,18 @@ Request items follow httpie-style parsing:
 
 When JSON mode is active, body fields are serialized as JSON and the `Content-Type` and `Accept` headers are set to `application/json` unless you already provided them.
 When form mode is active, body fields are collected as form data and `Content-Type` is set to `application/x-www-form-urlencoded` unless you already provided it.
+
+## Current capabilities
+
+The current CLI sends one HTTP request and prints the parsed response body. It supports:
+
+- URL normalization to `http://` when no scheme is provided
+- explicit HTTP methods from the supported method list
+- HTTPie-style headers, query parameters, and JSON or form request fields
+- following redirects with `--follow`
+- `--help`, `--version`, and `--verbose`
+
+Response status lines and headers, authentication, file uploads, downloads, sessions, and other HTTPie parity features are not implemented yet. See [TODO.md](./TODO.md) for planned work; that list is not a list of currently available commands or options.
 
 ## Development
 
