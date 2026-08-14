@@ -60,7 +60,7 @@ Source: https://httpie.io/docs/cli
 
 - [ ] Add `--all` to show intermediate redirect responses.
 - [ ] Add `--max-redirects <N>`.
-- [ ] Verify redirect method/body behavior for `307` and `308`.
+- [x] Verify redirect method/body behavior for `307` and `308`.
 
 ## 9. Download mode
 
