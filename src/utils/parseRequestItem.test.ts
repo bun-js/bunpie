@@ -34,10 +34,32 @@ test("parseRequestItem prefers multi-character operators at the same index", () 
   })
 })
 
-test("parseRequestItem ignores items with missing keys or values", () => {
+test("parseRequestItem ignores items with missing operators or keys", () => {
   expect(parseRequestItem("plain")).toBeNull()
   expect(parseRequestItem("=value")).toBeNull()
-  expect(parseRequestItem("name=")).toBeNull()
-  expect(parseRequestItem("header:")).toBeNull()
-  expect(parseRequestItem("param==")).toBeNull()
+})
+
+test("parseRequestItem preserves empty values", () => {
+  expect(parseRequestItem("name=")).toEqual({
+    type: "body",
+    key: "name",
+    value: "",
+    parseJson: false,
+  })
+  expect(parseRequestItem("header:")).toEqual({
+    type: "header",
+    key: "header",
+    value: "",
+  })
+  expect(parseRequestItem("param==")).toEqual({
+    type: "query",
+    key: "param",
+    value: "",
+  })
+  expect(parseRequestItem("value:=")).toEqual({
+    type: "body",
+    key: "value",
+    value: "",
+    parseJson: true,
+  })
 })

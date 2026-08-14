@@ -20,7 +20,7 @@ test("buildInit routes query params, headers, and body fields", () => {
   )
 
   expect(url.toString()).toBe("http://example.com/")
-  expect(requestUrl.toString()).toBe("http://example.com/?a=1")
+  expect(requestUrl.toString()).toBe("http://example.com/?a=1&skip=")
   expect(headersOf(init).get("x")).toBe("1")
   expect(headersOf(init).get("content-type")).toBe("application/json")
   expect(headersOf(init).get("accept")).toBe("application/json")
@@ -96,6 +96,19 @@ test("buildInit keeps invalid json values as strings for := fields", () => {
   const { init } = buildInit(["value:=not-json"], url, jsonOpts)
 
   expect(init.body).toBe(JSON.stringify({ value: "not-json" }))
+})
+
+test("buildInit serializes empty request-item values", () => {
+  const url = new URL("http://example.com/")
+  const { url: requestUrl, init } = buildInit(
+    ["query==", "empty-header:", "empty=", "json:=", "=ignored"],
+    url,
+    jsonOpts,
+  )
+
+  expect(requestUrl.searchParams.get("query")).toBe("")
+  expect(headersOf(init).get("empty-header")).toBe("")
+  expect(init.body).toBe(JSON.stringify({ empty: "", json: "" }))
 })
 
 test("buildInit uses form encoding when requested", () => {
