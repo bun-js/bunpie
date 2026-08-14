@@ -1,3 +1,11 @@
+check-status:
+  type: boolean
+  description: Exit with a non-zero status for HTTP error responses.
+
+headers:
+  type: boolean
+  description: Render the response status line and headers before the body.
+
 help:
   short: h
   type: boolean

@@ -2,6 +2,10 @@
 
 exports[`options matches snapshot 1`] = `
 {
+  "check-status": {
+    "description": "Exit with a non-zero status for HTTP error responses.",
+    "type": "boolean",
+  },
   "follow": {
     "default": false,
     "description": "Follow Location redirects.",
@@ -12,6 +16,10 @@ exports[`options matches snapshot 1`] = `
     "default": false,
     "description": "Data items from the command line are serialized as form fields. The Content-Type is set to application/x-www-form-urlencoded (if not specified). The presence of any file fields results in a multipart/form-data request.",
     "short": "f",
+    "type": "boolean",
+  },
+  "headers": {
+    "description": "Render the response status line and headers before the body.",
     "type": "boolean",
   },
   "help": {

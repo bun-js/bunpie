@@ -36,3 +36,25 @@ test("requestCommand() fetches, renders, and returns a successful result", async
     exitCode: 0,
   })
 })
+
+test("requestCommand() returns a non-zero status for HTTP errors when requested", async () => {
+  const result = await requestCommand({
+    fetch: (() => Promise.resolve(new Response("missing", { status: 404 }))) as typeof fetch,
+    opts: { checkStatus: true },
+    positionals: ["example.com"],
+    renderResponse: async () => "missing",
+  })
+
+  expect(result).toEqual({ stdout: "missing", exitCode: 1 })
+})
+
+test("requestCommand() keeps HTTP errors successful by default", async () => {
+  const result = await requestCommand({
+    fetch: (() => Promise.resolve(new Response("missing", { status: 404 }))) as typeof fetch,
+    opts: {},
+    positionals: ["example.com"],
+    renderResponse: async () => "missing",
+  })
+
+  expect(result.exitCode).toBe(0)
+})

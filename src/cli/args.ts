@@ -2,8 +2,10 @@ import { parseArgs } from "node:util"
 import { options } from "./options"
 
 export type ArgOpts = {
+  checkStatus?: boolean
   follow?: boolean
   form?: boolean
+  headers?: boolean
   help?: boolean
   json?: boolean
   verbose?: boolean

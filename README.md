@@ -31,12 +31,19 @@ Examples:
 bunpie example.com
 bunpie GET https://example.com
 bunpie POST https://example.com/api
+bunpie --headers https://example.com
+bunpie --check-status https://example.com
 bunpie example.com foo:bar
 bunpie example.com foo==bar
 bunpie example.com name=bun count:=42
 ```
 
 If you omit the method, `bunpie` defaults to `GET`.
+
+By default, the response body is rendered as JSON when possible, or as text.
+Use `--headers` to render the HTTP status line and response headers before the
+body. Use `--check-status` to exit with status 1 when the response status is
+400 or higher; without it, HTTP error responses still exit successfully.
 
 Request items follow httpie-style parsing:
 

@@ -12,3 +12,14 @@ test("renderResponse returns text for non-json bodies", async () => {
 
   expect(await renderResponse(response)).toBe("plain text")
 })
+
+test("renderResponse renders status and headers when requested", async () => {
+  const response = new Response("plain text", {
+    status: 418,
+    headers: { "x-teapot": "true" },
+  })
+
+  expect(await renderResponse(response, { headers: true })).toBe(
+    "HTTP 418\nx-teapot: true\n\nplain text",
+  )
+})
