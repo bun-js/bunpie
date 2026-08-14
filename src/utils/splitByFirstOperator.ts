@@ -31,7 +31,7 @@ export function splitByFirstOperator<T extends Operator>(
 
   const key = input.slice(0, match.index)
   const value = input.slice(match.index + match.operator.token.length)
-  if (!key || !value) return null
+  if (!key) return null
 
   return { operator: match.operator, key, value }
 }

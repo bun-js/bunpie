@@ -34,8 +34,15 @@ test("splitByFirstOperator ignores later operators farther to the right", () => 
   })
 })
 
-test("splitByFirstOperator rejects missing operators, keys, and values", () => {
+test("splitByFirstOperator rejects missing operators and keys", () => {
   expect(splitByFirstOperator("plain", operators)).toBeNull()
   expect(splitByFirstOperator("=value", operators)).toBeNull()
-  expect(splitByFirstOperator("name=", operators)).toBeNull()
+})
+
+test("splitByFirstOperator preserves empty values", () => {
+  expect(splitByFirstOperator("name=", operators)).toEqual({
+    operator: { token: "=", name: "body" },
+    key: "name",
+    value: "",
+  })
 })
