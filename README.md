@@ -52,6 +52,12 @@ When form mode is active, body fields are collected as form data and `Content-Ty
 
 Uses `mise`. See `mise.toml` for available tasks.
 
+## Security
+
+Security requirements for future authentication, sessions, configuration,
+file inputs, plugins, and execution features are documented in
+[`SECURITY.md`](./SECURITY.md).
+
 ## Package Contents
 
 This package is intentionally minimal and ships only what is needed to run the binary:
