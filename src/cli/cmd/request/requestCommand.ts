@@ -19,7 +19,7 @@ export async function requestCommand({
   const response = await fetch(request, { verbose: opts.verbose })
 
   return {
-    stdout: await renderResponse(response),
-    exitCode: 0,
+    stdout: await renderResponse(response, { headers: opts.headers }),
+    exitCode: opts.checkStatus && !response.ok ? 1 : 0,
   }
 }

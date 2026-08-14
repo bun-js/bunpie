@@ -9,6 +9,8 @@ exports[`renderMarkdownHelp() matches snapshot 1`] = `
 
 ## Options
 
+\`--check-status\` 	Exit with a non-zero status for HTTP error responses.\\
+\`--headers\` 	Render the response status line and headers before the body.\\
 \`-h\`, \`--help\` 	Show this help message and exit.\\
 \`-v\`, \`--verbose\` 	Verbose output.\\
 \`-V\`, \`--version\` 	Show version and exit.\\
